@@ -9,15 +9,9 @@ import PopUp from './js/popupClass.js'
 import Card from './js/card.js'
 import CardList from "./js/cardlist";
 
-const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
+const serverUrl = (NODE_ENV == 'development') ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
 
-export const api = new Api({
-    baseUrl: serverUrl,
-    headers: {
-      authorization: '29d14465-8192-42d7-b8a9-321684888aa5',
-      contentType: 'application/json'
-    }
-})
+
 
 
 const initialCards = [];
@@ -28,8 +22,9 @@ const userInfoButton = document.querySelector(".user-info__button");
 const editInfoButton = document.querySelector('.edit-info__button');
 //const userName = document.querySelector(".user-info__name");
 //const userJob = document.querySelector('.user-info__job');
-const apicls = new Api({
-  baseUrl: 'http://95.216.175.5/cohort2',
+
+export const api = new Api({
+  baseUrl: serverUrl,
   headers: {
     authorization: '29d14465-8192-42d7-b8a9-321684888aa5',
     'Content-Type': 'application/json'
@@ -79,19 +74,19 @@ document.addEventListener('click', (event) => {
 document.addEventListener('submit', function() {
   event.preventDefault();
   if (event.target.getAttribute('name') === 'edit') {
-    apicls.patchUserData(document.forms.edit.name.value,document.forms.edit.job.value);
+    api.patchUserData(document.forms.edit.name.value,document.forms.edit.job.value);
     popup.nameInput.removeEventListener('input', formsValidation);
     popup.jobInput.removeEventListener('input', formsValidation);
   } else {
-    apicls.loadNewCard(document.forms.new.name.value,document.forms.new.link.value);
+    api.loadNewCard(document.forms.new.name.value,document.forms.new.link.value);
     popup.nameInput.removeEventListener('input', formsValidation);
     popup.linkInput.removeEventListener('input', formsValidation);
   }
   popup.close();
 })
-apicls.getCards();
+api.getCards();
 //cardList.render(initialCards);
-apicls.getUserData();
+api.getUserData();
 
 /*
     Хорошая работа, обязательно задание выполнено, изменение страницы происходит после ответа сервера
