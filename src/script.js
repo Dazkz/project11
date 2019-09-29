@@ -8,6 +8,9 @@ import Api from './js/api.js';
 import PopUp from './js/popupClass.js'
 import Card from './js/card.js'
 import CardList from "./js/cardlist";
+
+const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
+
 export const api = new Api({
     baseUrl: serverUrl,
     headers: {
@@ -16,7 +19,7 @@ export const api = new Api({
     }
 })
 
-const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
+
 const initialCards = [];
 const cardList = new CardList(document.querySelector('.places-list'), initialCards);
 const card = new Card();
